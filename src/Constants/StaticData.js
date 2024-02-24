@@ -300,3 +300,12 @@ export const StaticData = [
     ],
   },
 ];
+
+export const popularCityData = [
+  {location: 'Mumbai, India'},
+  {location: 'Bangalore, India'},
+  {location: 'Ahmedabad, India'},
+  {location: 'Hyderabad, India'},
+  {location: 'Delhi, India'},
+  {location: 'Kolkata, India'},
+];

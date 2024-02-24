@@ -3,50 +3,41 @@ import React from 'react';
 import {Images} from '../../Constants/Images';
 import {textStyle, wp} from '../../Constants/MyStyle';
 import {Colors} from '../../Constants/Colors';
-import {useNavigation} from '@react-navigation/native';
-import {Screens} from '../../Config/Stack/Screens';
 
-const HomeHeader = () => {
-  const navigation = useNavigation();
-
+const SubHeader = ({onPressBack, text}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.headerText}>Welcome Guest</Text>
-      <TouchableOpacity
-        style={styles.bellCont}
-        onPress={() => {
-          navigation.navigate(Screens.NotificationScreen);
-        }}>
-        <Image source={Images.bell} style={styles.bell} />
+      <TouchableOpacity style={styles.backCont} onPress={onPressBack}>
+        <Image source={Images.back} style={styles.backIcon} />
       </TouchableOpacity>
+      <Text style={styles.headerText}>{text}</Text>
     </View>
   );
 };
 
-export default HomeHeader;
+export default SubHeader;
 
 const styles = StyleSheet.create({
   container: {
-    padding: wp('5'),
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingVertical: wp('5'),
   },
-  bell: {
+  backIcon: {
     width: wp('6'),
     height: wp('6'),
     resizeMode: 'contain',
     tintColor: Colors.orange,
   },
-  bellCont: {
+  backCont: {
     position: 'absolute',
-    right: wp('3'),
+    left: wp('3'),
     width: wp('12'),
     height: wp('12'),
     alignItems: 'center',
     justifyContent: 'center',
   },
   headerText: {
-    ...textStyle(6.8, Colors.orange, 6),
+    ...textStyle(5.6, Colors.orange, 5),
   },
 });

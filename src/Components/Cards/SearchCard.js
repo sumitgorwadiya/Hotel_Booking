@@ -1,17 +1,29 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
 import {textStyle, wp} from '../../Constants/MyStyle';
 import {Images} from '../../Constants/Images';
 import {Colors} from '../../Constants/Colors';
 import SolidButton from '../Buttons/SolidButton';
+import SearchAddressModal from '../Modals/SearchAddressModal';
+import TravelersModal from '../Modals/TravelersModal';
 
 const SearchCard = () => {
-  const renderCard = ({imgSrc, text}) => {
+  const [rooms, setRooms] = useState();
+  const [adults, setAdults] = useState();
+  const [children, setChildren] = useState();
+  const [userLocation, setUserLocation] = useState();
+  const [travelersVisible, setTravelersVisible] = useState(false);
+  const [searchModalVisible, setSearchModalVisible] = useState(false);
+  const [travelersActive, setTravelersActive] = useState(false);
+
+  const renderCard = ({imgSrc, text, onPress, filled}) => {
     return (
-      <View style={styles.cardCont}>
+      <TouchableOpacity style={styles.cardCont} onPress={onPress}>
         <Image source={imgSrc} style={styles.location} />
-        <Text style={styles.cardText}>{text}</Text>
-      </View>
+        <Text style={filled ? styles.cardTextFilled : styles.cardText}>
+          {text}
+        </Text>
+      </TouchableOpacity>
     );
   };
 
@@ -19,7 +31,11 @@ const SearchCard = () => {
     <View style={styles.container}>
       {renderCard({
         imgSrc: Images.search,
-        text: 'Search anywhere',
+        text: userLocation || 'Search anywhere',
+        onPress: () => {
+          setSearchModalVisible(true);
+        },
+        filled: userLocation,
       })}
       {renderCard({
         imgSrc: Images.calendar,
@@ -27,9 +43,31 @@ const SearchCard = () => {
       })}
       {renderCard({
         imgSrc: Images.person,
-        text: '1 Rooms 2 Adults',
+        text: `${rooms || 1} Rooms, ${adults || 2} Adults, ${
+          children || 0
+        } kids`,
+        onPress: () => {
+          setTravelersVisible(true);
+        },
+        filled: rooms,
       })}
       <SolidButton text={'Search'} />
+      <SearchAddressModal
+        visible={searchModalVisible}
+        onPressCancel={() => {
+          setSearchModalVisible(false);
+        }}
+        setUserLocation={setUserLocation}
+      />
+      <TravelersModal
+        visible={travelersVisible}
+        onPressCancel={() => {
+          setTravelersVisible(false);
+        }}
+        setRooms={setRooms}
+        setAdults={setAdults}
+        setChildren={setChildren}
+      />
     </View>
   );
 };
@@ -53,6 +91,7 @@ const styles = StyleSheet.create({
     marginBottom: wp(3),
   },
   cardText: {...textStyle(4.2, Colors.gray, 6)},
+  cardTextFilled: {...textStyle(4.2, Colors.black, 6)},
   location: {
     width: wp('4.2'),
     height: wp('4.2'),

@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StaticData} from '../Constants/StaticData';
 import {textStyle, wp} from '../Constants/MyStyle';
 import {Colors} from '../Constants/Colors';
@@ -15,6 +15,8 @@ import SearchCard from '../Components/Cards/SearchCard';
 import Carousel from 'react-native-snap-carousel';
 import {BlurView} from '@react-native-community/blur';
 import {Images} from '../Constants/Images';
+import {useRoute} from '@react-navigation/native';
+import SearchAddressModal from '../Components/Modals/SearchAddressModal';
 
 const hotelURL =
   'https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?cs=srgb&dl=pexels-donald-tong-189296.jpg&fm=jpg';
@@ -22,25 +24,37 @@ const roomURL =
   'https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
 
 const HomeScreen = () => {
+  const route = useRoute();
+  const [refresh, setRefresh] = useState(0);
+  //   const userLocation = route?.params?.userLocation;
+
+  useEffect(() => {
+    setTimeout(() => {
+      setRefresh(refresh + 1);
+    }, 300);
+  }, [refresh]);
+
   const _renderItem = ({item, index}) => {
     return (
       <View style={{height: wp('70'), width: wp('60')}}>
         <Image source={{uri: roomURL}} style={styles.hotelImage} />
         <View style={styles.blurContainer}>
           <BlurView style={styles.blurView} blurType="light" blurAmount={2}>
-            <View style={{gap: wp(1)}}>
-              <Text style={styles.name} numberOfLines={1}>
-                {item.name}
-              </Text>
-              <View style={styles.locationCont}>
-                <Image source={Images.location} style={styles.locationImg} />
-                <Text style={styles.locationText}>{item.location}</Text>
+            {refresh > 0 && (
+              <View style={{gap: wp(1)}} key={refresh}>
+                <Text style={styles.name} numberOfLines={1}>
+                  {item.name}
+                </Text>
+                <View style={styles.locationCont}>
+                  <Image source={Images.location} style={styles.locationImg} />
+                  <Text style={styles.locationText}>{item.location}</Text>
+                </View>
+                <View style={styles.locationCont}>
+                  <Image source={Images.star} style={styles.starImg} />
+                  <Text style={styles.locationText}>{item.rating} Ratting</Text>
+                </View>
               </View>
-              <View style={styles.locationCont}>
-                <Image source={Images.star} style={styles.starImg} />
-                <Text style={styles.locationText}>{item.rating} Ratting</Text>
-              </View>
-            </View>
+            )}
           </BlurView>
         </View>
         <TouchableOpacity style={styles.btn}>
@@ -96,6 +110,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: wp('54'),
     padding: wp('3'),
+    height: '100%',
   },
   name: {
     ...textStyle(3.8, Colors.white, 5),

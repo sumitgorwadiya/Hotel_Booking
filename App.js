@@ -1,12 +1,8 @@
-import {Text, View} from 'react-native';
 import React from 'react';
-import {StaticData} from './src/Constants/StaticData';
-import HomeScreen from './src/Screens/HomeScreen';
+import Route from './src/Config/Stack/Route';
 
 const App = () => {
-  console.log('StaticData', StaticData?.length);
-
-  return <HomeScreen />;
+  return <Route />;
 };
 
 export default App;

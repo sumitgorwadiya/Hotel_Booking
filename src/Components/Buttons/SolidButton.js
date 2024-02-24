@@ -1,13 +1,13 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {Colors} from '../../Constants/Colors';
 import {textStyle, wp} from '../../Constants/MyStyle';
 
-const SolidButton = ({text}) => {
+const SolidButton = ({text, otherStyle, onPress}) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={[styles.container, otherStyle]} onPress={onPress}>
       <Text style={styles.btnText}>{text}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

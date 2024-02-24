@@ -8,4 +8,9 @@ export const Images = {
   bell: require('../Assets/Images/bell.png'),
   calendar: require('../Assets/Images/calendar.png'),
   person: require('../Assets/Images/person.png'),
+  back: require('../Assets/Images/back.png'),
+  currentLocation: require('../Assets/Images/currentLocation.png'),
+  navigation: require('../Assets/Images/navigation.png'),
+  minus: require('../Assets/Images/minus.png'),
+  plus: require('../Assets/Images/plus.png'),
 };
