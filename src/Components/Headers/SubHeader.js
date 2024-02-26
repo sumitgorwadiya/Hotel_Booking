@@ -6,7 +6,7 @@ import {Colors} from '../../Constants/Colors';
 
 const SubHeader = ({onPressBack, text}) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <TouchableOpacity style={styles.backCont} onPress={onPressBack}>
         <Image source={Images.back} style={styles.backIcon} />
       </TouchableOpacity>
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: wp('5'),
+    backgroundColor: Colors.white,
   },
   backIcon: {
     width: wp('6'),

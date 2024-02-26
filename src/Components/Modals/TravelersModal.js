@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Modal, StyleSheet, Text, View} from 'react-native';
+import {Modal, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {hp, textStyle, wp} from '../../Constants/MyStyle';
 import {Colors} from '../../Constants/Colors';
 import SubHeader from '../Headers/SubHeader';
@@ -32,9 +32,10 @@ const TravelersModal = ({
       transparent={true}
       visible={visible}
       onRequestClose={onPressCancel}>
+      <StatusBar backgroundColor={Colors.white} barStyle={'dark-content'} />
       <View style={styles.modalSubContainer}>
         <View style={styles.container}>
-          <SubHeader onPressBack={onPressCancel} text={'Add Travellers'} />
+          <SubHeader onPressBack={onPressCancel} text={'Add Travelers'} />
           <View style={styles.subCont}>
             <View style={styles.navigationLocCont}>
               {renderCard({
@@ -62,6 +63,7 @@ const TravelersModal = ({
                 setRooms(numberOfRooms);
                 setAdults(numberOfAdults);
                 setChildren(numberOfChildren);
+                onPressCancel();
               }}
             />
           </View>

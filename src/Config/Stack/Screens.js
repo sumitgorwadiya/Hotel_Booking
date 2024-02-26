@@ -3,4 +3,6 @@ export const Screens = {
   NotificationScreen: 'NotificationScreen',
   HotelsScreen: 'HotelsScreen',
   HotelDetailScreen: 'HotelDetailScreen',
+  SelectRoomScreen: 'SelectRoomScreen',
+  ConfirmScreen: 'ConfirmScreen',
 };

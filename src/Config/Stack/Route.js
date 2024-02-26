@@ -7,6 +7,8 @@ import HotelsScreen from '../../Screens/HotelsScreen';
 import HotelDetailScreen from '../../Screens/HotelDetailScreen';
 import {Screens} from './Screens';
 import {NavigationContainer} from '@react-navigation/native';
+import SelectRoomScreen from '../../Screens/SelectRoomScreen';
+import ConfirmScreen from '../../Screens/ConfirmScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +27,11 @@ const Route = () => {
           name={Screens.HotelDetailScreen}
           component={HotelDetailScreen}
         />
+        <Stack.Screen
+          name={Screens.SelectRoomScreen}
+          component={SelectRoomScreen}
+        />
+        <Stack.Screen name={Screens.ConfirmScreen} component={ConfirmScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

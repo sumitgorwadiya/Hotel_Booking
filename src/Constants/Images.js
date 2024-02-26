@@ -13,4 +13,10 @@ export const Images = {
   navigation: require('../Assets/Images/navigation.png'),
   minus: require('../Assets/Images/minus.png'),
   plus: require('../Assets/Images/plus.png'),
+  food: require('../Assets/Images/food.png'),
+  pool: require('../Assets/Images/pool.png'),
+  spa: require('../Assets/Images/spa.png'),
+  gym: require('../Assets/Images/gym.png'),
+  wifi: require('../Assets/Images/wifi.png'),
+  room: require('../Assets/Images/room.png'),
 };

@@ -1,16 +1,14 @@
 import {
   Image,
   StyleSheet,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {textStyle, wp} from '../../Constants/MyStyle';
 import {Colors} from '../../Constants/Colors';
 import {Images} from '../../Constants/Images';
-import {useNavigation} from '@react-navigation/native';
 
 const SearchBox = ({setSearch, search, onPressBack}) => {
   return (
