@@ -9,6 +9,7 @@ import {Screens} from './Screens';
 import {NavigationContainer} from '@react-navigation/native';
 import SelectRoomScreen from '../../Screens/SelectRoomScreen';
 import ConfirmScreen from '../../Screens/ConfirmScreen';
+import ViewAllImageScreen from '../../Screens/ViewAllImageScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,10 @@ const Route = () => {
           component={SelectRoomScreen}
         />
         <Stack.Screen name={Screens.ConfirmScreen} component={ConfirmScreen} />
+        <Stack.Screen
+          name={Screens.ViewAllImageScreen}
+          component={ViewAllImageScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

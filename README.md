@@ -1,79 +1,85 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Hotel App Documentation
 
-# Getting Started
+## Overview
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+The Hotel_Booking App is a mobile application designed to provide users with a seamless hotel booking experience. It offers various screens and features to facilitate searching, booking, and managing hotel reservations.
 
-## Step 1: Start the Metro Server
+## Screens
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+### 1. Splash Screen
 
-To start Metro, run the following command from the _root_ of your React Native project:
+- Renders a custom animated UI using the React Native Reanimated library.
+- Displays for 2.4 seconds upon app launch.
 
-```bash
-# using npm
-npm start
+### 2. Home Screen
 
-# OR using Yarn
-yarn start
-```
+- Features a header with a welcome title and a notification icon.
+- Includes a search card for location, check-in/out dates, and room selection.
+- Provides a search button to navigate to the hotels screen.
+- Displays popular hotels using a carousel.
 
-## Step 2: Start your Application
+### 3. Hotels Screen
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+- Lists all available hotels.
+- Allows users to view hotel details by clicking on a hotel.
 
-### For Android
+### 4. Hotel Detail Screen
 
-```bash
-# using npm
-npm run android
+- Shows the hotel banner picture and relevant hotel data.
+- Displays hotel features and amenities.
+- Provides options to edit check-in/out timing and room details.
+- Shows hotel photos and descriptions.
+- Allows users to select a room and proceed to booking.
 
-# OR using Yarn
-yarn android
-```
+### 5. Select Room Screen
 
-### For iOS
+- Allows users to edit check-in/out timing and room details.
+- Displays room options for selection.
+- Provides a continue button to proceed to the confirmation screen.
 
-```bash
-# using npm
-npm run ios
+### 6. Confirm Screen
 
-# OR using Yarn
-yarn ios
-```
+- Displays hotel details along with user input details.
+- Shows check-in/out timing and a price summary.
+- Includes a form for traveler details.
+- Requires users to fill out the form before confirming the booking.
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+### 7. Photos Screen
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+- Opens when users click on the "View all" button on the hotel details screen.
+- Displays hotel photos.
+- Allows users to view photos in full-screen mode.
 
-## Step 3: Modifying your App
+### 8. Notifications Screen
 
-Now that you have successfully run the app, let's modify it.
+- Currently does not have any data available.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## Technologies Used
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+- React Native: Framework for building cross-platform mobile applications.
+- React Navigation: Library for implementing navigation in React Native apps.
+- React Native Reanimated: Library for creating fluid and interactive animations.
 
-## Congratulations! :tada:
+## Libraries Used
 
-You've successfully run and modified your React Native App. :partying_face:
+- **@react-native-async-storage/async-storage**: AsyncStorage library for storing data asynchronously in React Native apps.
+- **@react-navigation/native**: Core navigation library for React Native apps.
+- **@react-navigation/native-stack**: Stack-based navigation library for React Native apps.
+- **@reduxjs/toolkit**: Toolkit for efficient Redux development, providing utilities to simplify Redux code.
+- **deprecated-react-native-prop-types**: Library for handling deprecated React Native prop types.
+- **moment**: Library for parsing, validating, manipulating, and formatting dates in JavaScript.
+- **react**: React library for building user interfaces.
+- **react-native**: Core React Native library for building mobile apps.
+- **react-native-calendar-picker**: Calendar picker component for React Native apps.
+- **react-native-reanimated**: Library for creating fluid and interactive animations in React Native apps.
+- **react-native-safe-area-context**: Library for handling safe area insets in React Native apps.
+- **react-native-screens**: Library for managing screens in React Native apps.
+- **react-native-snap-carousel**: Carousel component for React Native apps.
+- **react-native-toast-message**: Library for displaying toast messages in React Native apps.
+- **react-redux**: Redux bindings for React, enabling the use of Redux state in React components.
 
-### Now what?
+## Future Enhancements
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- Integration with backend services for real-time hotel data.
+- Personalized recommendations based on user preferences.
+- Support for additional languages and currencies.

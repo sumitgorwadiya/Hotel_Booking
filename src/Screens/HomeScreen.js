@@ -7,7 +7,6 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {StaticData} from '../Constants/StaticData';
 import {textStyle, wp} from '../Constants/MyStyle';
 import {Colors} from '../Constants/Colors';
 import HomeHeader from '../Components/Headers/HomeHeader';
@@ -16,6 +15,7 @@ import Carousel from 'react-native-snap-carousel';
 import {Images} from '../Constants/Images';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {Screens} from '../Config/Stack/Screens';
+import {useSelector} from 'react-redux';
 
 const hotelURL =
   'https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg?cs=srgb&dl=pexels-donald-tong-189296.jpg&fm=jpg';
@@ -26,6 +26,8 @@ const HomeScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const [refresh, setRefresh] = useState(0);
+  const {allHotelData} = useSelector(state => state.hotelInfo);
+
   //   const userLocation = route?.params?.userLocation;
   useEffect(() => {
     setTimeout(() => {
@@ -81,7 +83,7 @@ const HomeScreen = () => {
       <SearchCard />
       <Text style={styles.title}>Popular Hotels !</Text>
       <Carousel
-        data={StaticData}
+        data={allHotelData}
         renderItem={_renderItem}
         sliderWidth={wp('104')}
         itemWidth={wp('60')}

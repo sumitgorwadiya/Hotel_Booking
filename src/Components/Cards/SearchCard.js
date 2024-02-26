@@ -10,7 +10,7 @@ import {useNavigation} from '@react-navigation/native';
 import {Screens} from '../../Config/Stack/Screens';
 import DatePickerModal from '../Modals/DatePickerModal';
 import moment from 'moment';
-import {StaticData} from '../../Constants/StaticData';
+import {useSelector} from 'react-redux';
 
 const SearchCard = () => {
   const navigation = useNavigation();
@@ -28,6 +28,7 @@ const SearchCard = () => {
   const [roomsError, setRoomsError] = useState();
   const checkIn = moment(checkInDate).format('DD/MM/YYYY');
   const checkOut = moment(checkOutDate).format('DD/MM/YYYY');
+  const {allHotelData} = useSelector(state => state.hotelInfo);
 
   useEffect(() => {
     if (locationError) {
@@ -55,10 +56,9 @@ const SearchCard = () => {
     } else if (!rooms) {
       setRoomsError(true);
     } else {
-      const hotelsData = StaticData.filter(
+      const hotelsData = allHotelData?.filter(
         item => item.location === userLocation,
       );
-      console.log('hotelsData', hotelsData);
       const travelerData = {
         checkInDate: checkInDate,
         checkOutDate: checkOutDate,
@@ -148,6 +148,9 @@ const SearchCard = () => {
         setRooms={setRooms}
         setAdults={setAdults}
         setChildren={setChildren}
+        rooms={rooms}
+        adults={adults}
+        children={children}
       />
       <DatePickerModal
         visible={datePickerVisible}

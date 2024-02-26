@@ -11,12 +11,13 @@ import {Screens} from '../Config/Stack/Screens';
 import moment from 'moment';
 import DatePickerModal from '../Components/Modals/DatePickerModal';
 import TravelersModal from '../Components/Modals/TravelersModal';
+import Utility from '../Constants/Utility';
 
 const SelectRoomScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const hotelData = route?.params?.hotelData;
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState();
   const travelerData = route?.params?.travelerData;
   const [rooms, setRooms] = useState();
   const [adults, setAdults] = useState();
@@ -27,6 +28,21 @@ const SelectRoomScreen = () => {
   const checkOut = moment(checkOutDate).format('DD/MM/YYYY');
   const [travelersVisible, setTravelersVisible] = useState(false);
   const [datePickerVisible, setDatePickerVisible] = useState(false);
+  const [roomAvailability, setRoomAvailability] = useState(false);
+
+  const startDate = moment(checkInDate);
+  const endDate = moment(checkOutDate);
+  const numberOfDays = endDate.diff(startDate, 'days') + 1;
+  const datesArray = Array.from({length: numberOfDays}, (_, index) =>
+    startDate.clone().add(index, 'days').format('DD-MM-YYYY'),
+  );
+
+  const bookDates = datesArray?.map(item => {
+    return {
+      bookedDate: item,
+      numberOfRooms: rooms,
+    };
+  });
 
   useEffect(() => {
     if (travelerData?.rooms) {
@@ -62,9 +78,11 @@ const SelectRoomScreen = () => {
           }
           onPressDatesEdit={() => {
             setDatePickerVisible(true);
+            setSelectedIndex();
           }}
           onPressRoomEdit={() => {
             setTravelersVisible(true);
+            setSelectedIndex();
           }}
           otherStyle={{marginTop: wp(-6), marginBottom: wp(4)}}
         />
@@ -73,10 +91,12 @@ const SelectRoomScreen = () => {
           renderItem={({item, index}) => {
             return (
               <RoomCard
-                item={item}
+                roomItem={item}
                 index={index}
                 selectedIndex={selectedIndex}
                 setSelectedIndex={setSelectedIndex}
+                bookDates={bookDates}
+                setRoomAvailability={setRoomAvailability}
               />
             );
           }}
@@ -86,21 +106,25 @@ const SelectRoomScreen = () => {
           <SolidButton
             text={'Continue'}
             onPress={() => {
-              const travelerDataNew = {
-                ...travelerData,
-                checkInDate: checkInDate,
-                checkOutDate: checkOutDate,
-                checkInDateOnly: moment(checkInDate).format('DD/MM/YYYY'),
-                checkOutDateOnly: moment(checkOutDate).format('DD/MM/YYYY'),
-                children: children,
-                rooms: rooms,
-                adults: adults,
-              };
-              navigation.navigate(Screens.ConfirmScreen, {
-                hotelData: hotelData,
-                roomData: hotelData?.rooms[selectedIndex],
-                travelerData: travelerDataNew,
-              });
+              if (!selectedIndex) {
+                Utility.showError('Please select room for continue');
+              } else {
+                const travelerDataNew = {
+                  ...travelerData,
+                  checkInDate: checkInDate,
+                  checkOutDate: checkOutDate,
+                  checkInDateOnly: moment(checkInDate).format('DD/MM/YYYY'),
+                  checkOutDateOnly: moment(checkOutDate).format('DD/MM/YYYY'),
+                  children: children,
+                  rooms: rooms,
+                  adults: adults,
+                };
+                navigation.navigate(Screens.ConfirmScreen, {
+                  hotelData: hotelData,
+                  roomData: hotelData?.rooms[selectedIndex],
+                  travelerData: travelerDataNew,
+                });
+              }
             }}
           />
         </View>
@@ -113,6 +137,9 @@ const SelectRoomScreen = () => {
         setRooms={setRooms}
         setAdults={setAdults}
         setChildren={setChildren}
+        rooms={rooms}
+        adults={adults}
+        children={children}
       />
       <DatePickerModal
         visible={datePickerVisible}

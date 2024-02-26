@@ -9,13 +9,17 @@ import ConfirmDateCard from '../Components/Cards/ConfirmDateCard';
 import ConfirmPriceCard from '../Components/Cards/ConfirmPriceCard';
 import TravelerCard from '../Components/Cards/TravelerCard';
 import SolidButton from '../Components/Buttons/SolidButton';
-import {Screens} from '../Config/Stack/Screens';
 import moment from 'moment';
+import {useDispatch, useSelector} from 'react-redux';
+import {storeAllHotelData} from '../Config/Redux/Slices/HotelInfoSlice';
+import {storeAsData} from '../Constants/StoreFunctions';
+import {AsKey} from '../Constants/AsKey';
 import Utility from '../Constants/Utility';
-import {StaticData} from '../Constants/StaticData';
+import {Screens} from '../Config/Stack/Screens';
 
 const ConfirmScreen = () => {
   const route = useRoute();
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const hotelData = route?.params?.hotelData;
   const roomData = route?.params?.roomData;
@@ -30,6 +34,7 @@ const ConfirmScreen = () => {
   const [code, setCode] = useState('+91');
   const [email, setEmail] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
+  const {allHotelData} = useSelector(state => state.hotelInfo);
 
   console.log('differenceInDays', differenceInDays);
 
@@ -51,17 +56,73 @@ const ConfirmScreen = () => {
     } else if (!validEmail) {
       Utility.showError('Please Enter Correct Email Id');
     } else {
-      // Alert.alert('Congratulations!', 'Hotel Booked Successfuly', [
-      //   {
-      //     text: 'Okay',
-      //     onPress: () => {
-      //       navigation.reset({
-      //         routes: [{name: Screens.HomeScreen}], // Array of route objects representing the new state
-      //       });
-      //     },
-      //   },
-      // ]);
+      storeHotelData();
     }
+  };
+
+  const storeHotelData = () => {
+    const startDate = moment(travelerData?.checkInDate);
+    const endDate = moment(travelerData?.checkOutDate);
+    const numberOfDays = endDate.diff(startDate, 'days') + 1;
+    const datesArray = Array.from({length: numberOfDays}, (_, index) =>
+      startDate.clone().add(index, 'days').format('DD-MM-YYYY'),
+    );
+    const bookDates = datesArray?.map(item => {
+      return {
+        bookedDate: item,
+        numberOfRooms: travelerData?.rooms,
+      };
+    });
+    let finalArr = [];
+    let m = allHotelData?.map((item, index) => {
+      if (item?.hotelId === hotelData?.hotelId) {
+        let newItem = Object.assign({});
+        const roomTempData = item?.rooms?.map((itm, ind) => {
+          let newItm = Object.assign({});
+          if (itm?.room_id === roomData?.room_id) {
+            if (itm?.bookingDates) {
+              const combinedArray = [...itm?.bookingDates, ...bookDates];
+              const numberOfRoomsByDate = {};
+              for (const booking of combinedArray) {
+                const {bookedDate, numberOfRooms} = booking;
+                if (numberOfRoomsByDate[bookedDate]) {
+                  numberOfRoomsByDate[bookedDate] += numberOfRooms;
+                } else {
+                  numberOfRoomsByDate[bookedDate] = numberOfRooms;
+                }
+              }
+              const resultArray = Object.entries(numberOfRoomsByDate).map(
+                ([bookedDate, numberOfRooms]) => ({bookedDate, numberOfRooms}),
+              );
+
+              console.log('numberOfRoomsByDate', resultArray);
+              newItm = {...itm, bookingDates: resultArray};
+            } else {
+              newItm = {...itm, bookingDates: bookDates};
+            }
+          } else {
+            newItm = itm;
+          }
+          return newItm;
+        });
+        newItem = {...item, rooms: roomTempData};
+        finalArr.push(newItem);
+      } else {
+        finalArr.push(item);
+      }
+    });
+    storeAsData(AsKey.hotelData, finalArr);
+    dispatch(storeAllHotelData(finalArr));
+    Alert.alert('Congratulations!', 'Hotel Booked Successfully', [
+      {
+        text: 'Okay',
+        onPress: () => {
+          navigation.reset({
+            routes: [{name: Screens.HomeScreen}], // Array of route objects representing the new state
+          });
+        },
+      },
+    ]);
   };
 
   return (
@@ -76,7 +137,11 @@ const ConfirmScreen = () => {
         />
         <ScrollView>
           <View style={styles.whiteBg}>
-            <ConfirmHotelCard hotelData={hotelData} roomData={roomData} />
+            <ConfirmHotelCard
+              hotelData={hotelData}
+              roomData={roomData}
+              travelerData={travelerData}
+            />
             <ConfirmDateCard
               checkInDate={travelerData?.checkInDateOnly}
               checkOutDate={travelerData?.checkOutDateOnly}

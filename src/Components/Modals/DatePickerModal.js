@@ -5,14 +5,11 @@ import {Colors} from '../../Constants/Colors';
 import SubHeader from '../Headers/SubHeader';
 import SolidButton from '../Buttons/SolidButton';
 import CalendarPicker from 'react-native-calendar-picker';
-import moment from 'moment';
 
 const DatePickerModal = ({
   visible,
   onPressCancel,
-  checkInDate,
   setCheckInDate,
-  checkOutDate,
   setCheckOutDate,
 }) => {
   const [selectedStartDate, setSelectedStartDate] = useState(null);
@@ -21,8 +18,6 @@ const DatePickerModal = ({
 
   const minDate = new Date(); // Today
   const maxDate = new Date(2087, 6, 3);
-  const startDate = selectedStartDate ? selectedStartDate.toString() : '';
-  const endDate = selectedEndDate ? selectedEndDate.toString() : '';
 
   useEffect(() => {
     if (checkOutError) {
@@ -31,7 +26,6 @@ const DatePickerModal = ({
   }, [checkOutError, selectedStartDate, selectedEndDate]);
 
   const onDateChange = (date, type) => {
-    console.log('date', date);
     if (type === 'END_DATE') {
       setSelectedEndDate(date);
     } else {

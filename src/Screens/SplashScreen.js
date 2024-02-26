@@ -8,11 +8,14 @@ import Animated, {
 import {Colors} from '../Constants/Colors';
 import {StatusBar, StyleSheet, View} from 'react-native';
 import {hp, wp} from '../Constants/MyStyle';
-import {Stores} from '../Constants/Stores';
+import {AsKey} from '../Constants/AsKey';
 import {StaticData} from '../Constants/StaticData';
 import {getAsData, storeAsData} from '../Constants/StoreFunctions';
+import {useDispatch} from 'react-redux';
+import {storeAllHotelData} from '../Config/Redux/Slices/HotelInfoSlice';
 
 const SplashScreen = () => {
+  const dispatch = useDispatch();
   const [i, setI] = useState(0);
   const p = useSharedValue(180);
   const o = useSharedValue(0.1);
@@ -23,10 +26,13 @@ const SplashScreen = () => {
   }, []);
 
   const getData = async () => {
-    await getAsData(Stores.hotelData).then(res => {
+    await getAsData(AsKey.hotelData).then(res => {
       console.log('res -->', res);
       if (!res) {
-        storeAsData(Stores.hotelData, StaticData);
+        storeAsData(AsKey.hotelData, StaticData);
+        dispatch(storeAllHotelData(StaticData));
+      } else {
+        dispatch(storeAllHotelData(res));
       }
     });
   };

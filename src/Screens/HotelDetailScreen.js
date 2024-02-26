@@ -21,7 +21,7 @@ import Animated, {
 import {DetailCard} from '../Components/Cards/HotelCard';
 import {Images} from '../Constants/Images';
 import FeatureCard from '../Components/Cards/FeatureCard';
-import {HotelDescription} from '../Constants/StaticData';
+import {HotelDescription, HotelImages} from '../Constants/StaticData';
 import SolidButton from '../Components/Buttons/SolidButton';
 import {Screens} from '../Config/Stack/Screens';
 import CheckInCard from '../Components/Cards/CheckInCard';
@@ -29,6 +29,7 @@ import TravelersModal from '../Components/Modals/TravelersModal';
 import Utility from '../Constants/Utility';
 import moment from 'moment';
 import DatePickerModal from '../Components/Modals/DatePickerModal';
+import HotelImagesCard from '../Components/Cards/HotelImagesCard';
 
 const IMG_HEIGHT = wp(80);
 
@@ -105,8 +106,6 @@ const HotelDetailScreen = () => {
     };
   });
 
-  console.log('hotelData.amenities', hotelData.amenities);
-
   const onPressBack = () => {
     navigation.goBack();
   };
@@ -152,6 +151,7 @@ const HotelDetailScreen = () => {
               setTravelersVisible(true);
             }}
           />
+          <HotelImagesCard />
           <Text style={styles.description}>
             {HotelDescription + HotelDescription}
           </Text>
@@ -207,6 +207,9 @@ const HotelDetailScreen = () => {
         setRooms={setRooms}
         setAdults={setAdults}
         setChildren={setChildren}
+        rooms={rooms}
+        adults={adults}
+        children={children}
       />
       <DatePickerModal
         visible={datePickerVisible}
@@ -247,6 +250,7 @@ const styles = StyleSheet.create({
     marginTop: wp(4),
     marginBottom: wp(2),
   },
+
   description: {
     ...textStyle(3.5, Colors.gray, 4),
     marginTop: wp(4),

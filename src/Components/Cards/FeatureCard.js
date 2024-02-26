@@ -6,10 +6,8 @@ import {Colors} from '../../Constants/Colors';
 
 const FeatureCard = ({item}) => {
   const [img, setImg] = useState();
-  console.log('item', item);
 
   useEffect(() => {
-    console.log('item', item);
     if (item == 'Spa') {
       setImg(Images.spa);
     } else if (item == 'Food') {

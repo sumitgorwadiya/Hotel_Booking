@@ -5,4 +5,5 @@ export const Screens = {
   HotelDetailScreen: 'HotelDetailScreen',
   SelectRoomScreen: 'SelectRoomScreen',
   ConfirmScreen: 'ConfirmScreen',
+  ViewAllImageScreen: 'ViewAllImageScreen',
 };

@@ -1,3 +1,5 @@
+import {Images} from './Images';
+
 export const StaticData = [
   {
     hotelId: 'hotelId1',
@@ -417,3 +419,16 @@ export const HotelDescription = `
 Explore a collection of premier hotels across India, each offering a unique blend of luxury and convenience. From the breathtaking Ocean View Resort in Mumbai to the tech-savvy ambiance of the City Center Hotel in Ahmedabad, every stay promises a memorable experience. Indulge in modern comforts at the Tech Park Hotel in Bangalore or immerse yourself in Hyderabad's rich heritage at the elegant Heritage Hotel. Whether it's a rooftop pool with city views at the Urban Oasis in Delhi or serene riverside vistas at the Riverside Resort in Kolkata, each destination caters to discerning travelers seeking comfort and style.
 
 In these hotels, you'll find a perfect balance of relaxation and sophistication. From the grandeur of the Grand Hotel in Ahmedabad to the tranquil ambiance of the Garden Lodge in Bangalore, every establishment offers a retreat tailored to your desires. Whether it's a rejuvenating spa treatment in Luxury Suites, Delhi, or a refreshing dip in the outdoor pool at the Marina Resort, Mumbai, each hotel promises a delightful escape. Experience the charm of the City View Hotel in Hyderabad or savor coastal beauty at the Bayfront Hotel in Kolkata. With impeccable service and top-notch amenities, these hotels redefine hospitality, ensuring a memorable stay for every guest.`;
+
+export const HotelImages = [
+  Images.Hotel1,
+  Images.Hotel2,
+  Images.Hotel3,
+  Images.Hotel4,
+  Images.Hotel5,
+  Images.Hotel6,
+  Images.Hotel7,
+  Images.Hotel8,
+  Images.Hotel9,
+  Images.Hotel10,
+];

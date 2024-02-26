@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Modal, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {hp, textStyle, wp} from '../../Constants/MyStyle';
 import {Colors} from '../../Constants/Colors';
@@ -12,10 +12,23 @@ const TravelersModal = ({
   setRooms,
   setAdults,
   setChildren,
+  rooms,
+  adults,
+  children,
 }) => {
   const [numberOfRooms, setNumberOfRooms] = useState(1);
   const [numberOfAdults, setNumberOfAdults] = useState(2);
   const [numberOfChildren, setNumberOfChildren] = useState(0);
+
+  useEffect(() => {
+    rooms && setNumberOfRooms(rooms);
+  }, [rooms]);
+  useEffect(() => {
+    children && setNumberOfChildren(children);
+  }, [children]);
+  useEffect(() => {
+    adults && setNumberOfAdults(adults);
+  }, [adults]);
 
   const renderCard = ({title, numberCount, setNumberCount, otherStyle}) => {
     return (

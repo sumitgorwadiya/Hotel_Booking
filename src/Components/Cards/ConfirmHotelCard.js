@@ -1,12 +1,10 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {roomURL} from '../../Screens/HomeScreen';
 import {textStyle, wp} from '../../Constants/MyStyle';
 import {Colors} from '../../Constants/Colors';
 import {Images} from '../../Constants/Images';
 
-const ConfirmHotelCard = ({hotelData, roomData}) => {
-  console.log('roomData', roomData);
+const ConfirmHotelCard = ({hotelData, roomData, travelerData}) => {
   return (
     <View style={styles.container}>
       <Image source={Images.room} style={styles.img} />
@@ -22,7 +20,10 @@ const ConfirmHotelCard = ({hotelData, roomData}) => {
           <Image source={Images.star} style={styles.starImg} />
           <Text style={styles.locationText}>{hotelData.rating}/10 Ratting</Text>
         </View>
-        <Text style={styles.locationText}>1 Room, 2 Adults, 0 children</Text>
+        <Text style={styles.locationText}>
+          {travelerData?.rooms} Room, {travelerData?.adults} Adults,{' '}
+          {travelerData?.children} children
+        </Text>
         <Text style={styles.locationText}>{roomData.room_type}</Text>
       </View>
     </View>
